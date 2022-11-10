@@ -43,15 +43,13 @@ def init_tree(root_to_leaves, root):
     return tree
 
 def spread_instances(instances, tree):
-
     for instance in instances:
         node = root
 
         while node not in tree.leaves:
             max_cap = 0
-            name = ""
             for _,child in tree.T.out_edges(node):
-                if tree.T.nodes[child]["capacity"] >= max_cap and child >= name:
+                if tree.T.nodes[child]["capacity"] > max_cap:
                     max_cap = tree.T.nodes[child]["capacity"]
                     node = child
 
@@ -66,7 +64,7 @@ def spread_instances(instances, tree):
                 tree.T.nodes[parent]["capacity"] -= 1
             node = parent
 
-        # print_tree(T)
+        # print_tree(tree.T)
 
 def print_tree(T):
     pos = graphviz_layout(T, prog="dot")
